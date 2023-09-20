@@ -5,10 +5,6 @@ function reducer(state, action) {
   console.log(action);
 
   switch (action.type) {
-    case "dec":
-      return { ...state, count: state.count - 1 };
-    case "inc":
-      return { ...state, count: state.count + 1 };
     case "setCount":
       return { ...state, count: action.payload };
     default:
