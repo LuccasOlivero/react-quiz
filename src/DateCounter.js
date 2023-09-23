@@ -2,8 +2,8 @@ import { useReducer } from "react";
 const intialState = { count: 0, step: 1 };
 
 function reducer(state, action) {
-  console.log(state);
-  console.log(action);
+  // console.log(state);
+  // console.log(action);
 
   switch (action.type) {
     case "dec":
@@ -24,7 +24,7 @@ function reducer(state, action) {
 function DateCounter() {
   const [state, dispatch] = useReducer(reducer, intialState);
   const { count, step } = state;
-
+  // console.log(count, step);
   // This mutates the date object.
   const date = new Date("june 21 2027");
   date.setDate(date.getDate() + count);
