@@ -3,7 +3,7 @@ function Options({ questions, dispatch, answer }) {
 
   return (
     <div className="options">
-      {questions.options.map((option, index) => (
+      {questions?.options?.map((option, index) => (
         <button
           key={option}
           className={`btn btn-option ${index === answer ? "answer" : ""}
