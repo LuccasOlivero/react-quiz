@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useContext, createContext } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Loader from "./Loader";
@@ -72,6 +72,8 @@ const initialState = {
   secondsRemaining: 10,
 };
 
+export const TestContext = createContext(null);
+
 export default function App() {
   const [
     { questions, status, answer, index, points, highscore, secondsRemaining },
@@ -92,49 +94,39 @@ export default function App() {
   }, []);
 
   return (
-    <div className="app">
-      <Header />
-
-      <Main>
-        {status === "loading" && <Loader />}
-        {status === "error" && <Error />}
-        {status === "ready" && (
-          <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
-        )}
-        {status === "active" && (
-          <>
-            <Progress
-              index={index}
-              points={points}
-              maxPossiblePoints={maxPossiblePoints}
-              numQuestions={numQuestions}
-              answer={answer}
-            />
-            <Questions
-              questions={questions[index]}
-              dispatch={dispatch}
-              answer={answer}
-            />
-            <Footer>
-              <Timer dispatch={dispatch} secondsRemaining={secondsRemaining} />
-              <NextButtom
-                dispatch={dispatch}
-                answer={answer}
-                numQuestions={numQuestions}
-                index={index}
-              />
-            </Footer>
-          </>
-        )}
-        {status === "finished" && (
-          <FinishScreen
-            maxPossiblePoints={maxPossiblePoints}
-            points={points}
-            highscore={highscore}
-            dispatch={dispatch}
-          />
-        )}
-      </Main>
-    </div>
+    <TestContext.Provider
+      value={{
+        questions,
+        status,
+        answer,
+        index,
+        points,
+        highscore,
+        secondsRemaining,
+        dispatch,
+        numQuestions,
+        maxPossiblePoints,
+      }}
+    >
+      <div className="app">
+        <Header />
+        <Main>
+          {status === "loading" && <Loader />}
+          {status === "error" && <Error />}
+          {status === "ready" && <StartScreen />}
+          {status === "active" && (
+            <>
+              <Progress />
+              <Questions />
+              <Footer>
+                <Timer />
+                <NextButtom />
+              </Footer>
+            </>
+          )}
+          {status === "finished" && <FinishScreen />}
+        </Main>
+      </div>
+    </TestContext.Provider>
   );
 }

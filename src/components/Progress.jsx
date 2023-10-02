@@ -1,4 +1,9 @@
-function Progress({ index, numQuestions, points, maxPossiblePoints, answer }) {
+import { useContext } from "react";
+import { TestContext } from "./App";
+
+function Progress() {
+  const { index, numQuestions, points, maxPossiblePoints, answer } =
+    useContext(TestContext);
   return (
     <header className="progress">
       <progress

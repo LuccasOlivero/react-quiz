@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import Options from "./Options";
+import { TestContext } from "./App";
 
-function Questions({ questions, dispatch, answer }) {
+function Questions() {
+  const { questions, dispatch, answer } = useContext(TestContext);
   // console.log(questions);
   return (
     <div>
